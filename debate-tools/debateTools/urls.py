@@ -20,5 +20,5 @@ from homepage import views as homepage_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', )
+    path('', homepage_views.homepage)
 ]
