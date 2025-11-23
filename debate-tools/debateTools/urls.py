@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from homepage import views as homepage_views
+from caseViewer import views as caseviewer_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage_views.homepage)
+    path('', homepage_views.homepage),
+    path('viewer/', caseviewer_views.viewer),
 ]

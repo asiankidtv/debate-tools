@@ -5,4 +5,27 @@
 {% block body %}
 <!-- Page content goes here -->
     <h1 class="text-center">Case Viewer</h1>
+
+    <div class="card" style="width: 80%; margin-left: 10%;">
+    <div class="card-body">
+        <h5 class="card-title">How to use:</h5>
+        <p class="card-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Aliquam tincidunt vitae ligula et mattis. 
+        Integer imperdiet massa a accumsan mattis. In eu commodo velit, vitae cursus nulla. 
+        Morbi quam lectus, accumsan sit amet eros vitae, interdum posuere odio. Donec sit amet felis iaculis, rutrum diam volutpat, mollis lorem.
+        </p>
+    </div>
+    </div>
+
+    <div class="card mt-3" style="width: 80%; margin-left: 10%;">
+    <div class="card-body">
+        <form action="/viewer/" method="post">
+            {% csrf_token %}
+            <h5 class="card-title">Paste Case</h5>
+            <textarea class="form-control mt-2 mb-2" name="case" rows="20" placeholder="Paste Case Here"></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    </div>
 {% endblock %}
