@@ -1,0 +1,37 @@
+.drop-box {
+    height: 75px;
+    width: 300px; 
+    text-align: center; 
+    border: 2px dotted black;
+}
+
+.card-connector {
+    margin-left: 5%; 
+    height: 50px; 
+    width: 100px;
+    display: inline-block;
+}
+
+.node {
+    position: relative;
+}
+
+/* Vertical line under Card 1 */
+.connector.vertical {
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: black;
+  left: 100px;     /* centers under card */
+  top: 100%;       /* starts at bottom of card */
+}
+
+/* Horizontal line coming out of vertical line */
+.connector.horizontal {
+  position: absolute;
+  height: 2px;
+  width: 60px;
+  background: black;
+  top: calc(100% + 40px - 1px);  /* aligns perfectly with vertical line bottom */
+  left: 100px;   /* same as vertical line */
+}

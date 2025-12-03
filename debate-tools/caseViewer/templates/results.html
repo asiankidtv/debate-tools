@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}Home - Debate Tools{% endblock %}
+{% load static %}
+
+{% block head %}<link rel="stylesheet" href='{% static "results.css" %}' type="text/css">{% endblock %}
+
+{% block body %}
+
+    <script src='{% static "results.js" %}'></script>
+
+<!-- HTML Templates: -->
+    <!-- Card Connector -->
+    <template id="connector-template"> 
+        <!-- <div class="card-connector border-dark border-start border-bottom"></div> -->
+        <div class="connector vertical"></div>
+        <div class="connector horizontal"></div>
+    </template> 
+
+    <!-- Drop Box -->
+    <template id="drop-box-template">
+        <div class="drop-box" style="display: inline-block;">
+            <h1>+</h1>
+        </div>
+    </template>
+
+<!-- Page content goes here -->
+    <h1 class="text-center">Case Results:</h1>
+
+    <div class="case-box m-2">
+        <div class="border">
+            <h2>Construct your Case:</h2>
+        </div>
+        
+        <div class="drop-box" style="display: inline-block;">
+            <h1>+</h1>
+        </div>
+    </div>
+
+<!-- Card Pool: -->
+    <div class="border-dark border-bottom" style="margin-top: 50px; margin-bottom: 50px; width: 100%;"></div>
+
+    <h1 class="text-center">Extracted Cards:</h1>
+    <div class="d-flex flex-wrap" style="margin-left: 5%; width: 90%;">
+        {% for card in cards %}
+            <div class="card debate-card" draggable="true" style="width: 25%; margin-left: 0%;">
+            <div class="card-body">
+                <h5 class="card-title">CARD_TITLE</h5>
+                <p class="card-text">
+                {{ card }}
+                </p>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

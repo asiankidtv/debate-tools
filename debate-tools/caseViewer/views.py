@@ -5,5 +5,6 @@ def viewer(request):
     if request.method == 'GET':
         return render(request, 'viewer.html', {})
     elif request.method == 'POST':
-        print(request.POST.get('case'))
-        return render(request, 'viewer.html', {})
+        case = request.POST.get('case', '')
+        cards = case.split('\r\n\r\n')
+        return render(request, 'results.html', {'cards': cards})
