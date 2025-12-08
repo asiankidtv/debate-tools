@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}Flow - Debate Tools{% endblock %}
+
+{% block body %}
+
+<h1 class="text-center">Case Flow</h1>
+
+<div class="button-holder ">
+    <button type="button" class="btn btn-primary">Switch Sides</button>
+    <button type="button" class="btn btn-primary">Save Flow</button>
+    <button type="button" class="btn btn-primary">Summarize Case ✨</button>
+    <div class="icon-info-sign"></div>
+</div> <br>
+
+<div id="flow" class="row w-100 h-100">
+    <div id="case" class="column w-25 h-100 d-inline">
+        <h2 class="text-center">Aff Case</h2>
+    </div>
+    <div id="rebuttal" class="column w-25 h-100 d-inline">
+        <h2 class="text-center">Neg Rebuttal</h2>
+    </div>
+    <div id="summary" class="column w-25 h-100 d-inline">
+        <h2 class="text-center">Aff Summary</h2>
+    </div>
+    <div id="final-focus" class="column w-25 h-100 d-inline">
+        <h2 class="text-center">Neg Final Focus</h2>
+    </div>
+</div>
+
+{% endblock %}
