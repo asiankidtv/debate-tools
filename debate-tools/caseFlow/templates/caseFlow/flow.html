@@ -3,12 +3,13 @@
 {% block title %}Flow - Debate Tools{% endblock %}
 
 {% block body %}
+{% load static %}
 
 <br>
 <h1 class="text-center">Case Flow</h1>
 
 <div class="button-holder" style="margin-left: 2.5%;">
-    <button type="button" class="btn btn-primary">Switch Sides</button>
+    <button id="switch-button" type="button" class="btn btn-primary">Switch Sides</button>
     <button type="button" class="btn btn-primary">Save Flow</button>
     <button type="button" class="btn btn-primary">Summarize Case ✨</button>
     <div class="icon-info-sign"></div>
@@ -17,33 +18,22 @@
 <!--Styling CSS Needs to be cleaned up at some point-->
 <div id="flow" class="rounded row bg-white min-vh-100" style="width: 95%; margin-left: 2.5%; padding-top: 20px;">
     <div id="case" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 class="text-center">Aff Case</h2>
+        <h2 id ="case-title" class="text-center">Aff Case</h2>
         <div id="case-editor" style="height: 90%;"></div>
     </div>
     <div id="rebuttal" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 class="text-center">Neg Rebuttal</h2>
+        <h2 id="rebuttal-title" class="text-center">Neg Rebuttal</h2>
         <div id="rebuttal-editor" style="height: 90%;"></div>
     </div>
     <div id="summary" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 class="text-center">Aff Summary</h2>
+        <h2 id="summary-title" class="text-center">Aff Summary</h2>
         <div id="summary-editor" style="height: 90%;"></div>
     </div>
     <div id="final-focus" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 class="text-center">Neg Final Focus</h2>
+        <h2 id="final-focus-title" class="text-center">Neg Final Focus</h2>
         <div id="final-focus-editor" style="height: 90%;"></div>
     </div>
 </div>
 
-<script>
-    const options = {
-        placeholder: "Begin typing here...",
-        theme: "snow",
-    }
-
-    const caseQuill = new Quill("#case-editor", options);
-    const rebuttalQuill = new Quill("#rebuttal-editor", options);
-    const summaryQuill = new Quill("#summary-editor", options);
-    const finalFocusQuill = new Quill("#final-focus-editor", options);
-</script>
-
+<script src="{% static 'caseFlow/flow.js' %}"></script>
 {% endblock %}
