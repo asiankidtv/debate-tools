@@ -29,6 +29,7 @@ const finalFocusTitle = document.getElementById("final-focus-title");
 
 let aff = true;
 
+
 /**
  * Switch Case Sides Button
  * Stores the current side's content locally and loads the other. If the other side has no content, it sets the boxes to an empty string.
