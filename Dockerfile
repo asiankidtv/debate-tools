@@ -23,4 +23,4 @@ COPY debate-tools/ .
 EXPOSE 8000
 
 # Starts Server - CHANGE FOR PRODUCTION PLS PLS DONT FORGET OR YOULL LOOK STUPID :<
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+CMD ["./entrypoint.sh"]
