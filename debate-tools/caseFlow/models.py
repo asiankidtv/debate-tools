@@ -4,7 +4,7 @@ from django.db import models
 class flow(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=True)
 
     affCase = models.JSONField(blank=True, null=True)
     affRebuttal = models.JSONField(blank=True, null=True)

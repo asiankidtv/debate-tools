@@ -1,7 +1,6 @@
 services:
   
   web:
-    
     # What dockerfile to run (looks for it automatically)
     build: .
     container_name: debate-tools

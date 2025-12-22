@@ -10,7 +10,7 @@
 
 <div class="button-holder" style="margin-left: 2.5%;">
     <button id="switch-button" type="button" class="btn btn-primary">Switch Sides</button>
-    <button type="button" class="btn btn-primary">Save Flow</button>
+    <button id="save-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#save-modal">Save Flow</button>
     <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#load-modal">Load Flow</button>
     <button type="button" class="btn btn-primary">Summarize Case ✨</button>
     <div class="icon-info-sign"></div>
@@ -45,10 +45,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; padding: 20px;">
-            <h2>FLOW TITLE</h2>
-            <p>Last Edited: MM/DD/YYYY</p>
-        </div>
+        {% for flow in flows %}
+          <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
+              <h2>{{ flow.name }}</h2>
+              <p>Last Edited: {{ flow.created }} UTC</p>
+              <button type="button" class="btn btn-secondary load-button" aria-label="Load Flow">Load</button>
+          </div>
+        {% endfor %}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -56,6 +59,32 @@
     </div>
   </div>
 </div>
+
+<!--Modal for Naming Flows when saving:-->
+<div class="modal fade" id="save-modal" tabindex="-1" aria-labelledby="modal-title-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal-title-1">Save Flow:</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
+              <h3>Name:</h3>
+              <input type="text" id="name-input" placeholder="Name Flow...">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save Flow</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--I didnt know this was a feature but it is cool beans-->
+<script type="text/javascript">
+   let flows = JSON.parse('{{ flowsJSON | safe }}')
+</script>
 
 <script src="{% static 'caseFlow/flow.js' %}"></script>
 {% endblock %}
