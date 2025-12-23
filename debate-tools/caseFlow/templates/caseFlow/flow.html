@@ -10,7 +10,7 @@
 
 <div class="button-holder" style="margin-left: 2.5%;">
     <button id="switch-button" type="button" class="btn btn-primary">Switch Sides</button>
-    <button id="save-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#save-modal">Save Flow</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#save-modal">Save Flow</button>
     <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#load-modal">Load Flow</button>
     <button type="button" class="btn btn-primary">Summarize Case ✨</button>
     <div class="icon-info-sign"></div>
@@ -75,7 +75,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save Flow</button>
+        <button id="save-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save Flow</button>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
 
 <!--I didnt know this was a feature but it is cool beans-->
 <script type="text/javascript">
-   let flows = JSON.parse('{{ flowsJSON | safe }}')
+   let flows = JSON.parse('{{ flowsJSON | escapejs }}')
 </script>
 
 <script src="{% static 'caseFlow/flow.js' %}"></script>

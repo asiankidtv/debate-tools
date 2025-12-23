@@ -27,7 +27,6 @@ function getCookie(name) {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -59,12 +58,12 @@ let flowId = -1;
  * If id of current flow is -1, save a new flow.
  */
 document.getElementById("save-button").addEventListener("click", async function(e) {
-    
     const saveURL = "/flow/"
     let data = null
     if (aff) {
         data = {
             "id": flowId,
+            "name": document.getElementById("name-input").value,
             "affCase": caseQuill.getContents(),
             "affRebuttal": rebuttalQuill.getContents(),
             "affSummary": summaryQuill.getContents(),
@@ -78,6 +77,7 @@ document.getElementById("save-button").addEventListener("click", async function(
     else {
         data = {
             "id": flowId,
+            "name": document.getElementById("name-input").value,
             "affCase": content.affCase,
             "affRebuttal": content.affRebuttal,
             "affSummary": content.affSummary,
@@ -113,10 +113,27 @@ document.getElementById("save-button").addEventListener("click", async function(
  * Load Cases Button
  * 
  */
-document.querySelectorAll(".load-button").forEach((button, id) => {
+document.querySelectorAll(".load-button").forEach((button, index) => {
     button.addEventListener("click", function(e) {
-        console.log(flows)
-        console.log(flows[id].fields.affCase)
+        console.log(flows);
+        flowId = flows[index].pk;
+        document.getElementById("name-input").value = flows[index].fields.name;
+        
+        for (const [key, value] of Object.entries(flows[index].fields)) {
+            if (key != "name" && key != "created") {
+                content[key] = value;
+            }
+        }
+        console.log(content);
+        aff = true;
+        caseTitle.innerText = "Aff Case";
+        rebuttalTitle.innerText = "Neg Rebuttal";
+        summaryTitle.innerText = "Aff Summary";
+        finalFocusTitle.innerText = "Neg Final Focus";
+        caseQuill.setContents(content.affCase)
+        rebuttalQuill.setContents(content.negRebuttal)
+        summaryQuill.setContents(content.affSummary)
+        finalFocusQuill.setContents(content.negFinalFocus)
     });
 });
 
@@ -129,14 +146,14 @@ document.querySelectorAll(".load-button").forEach((button, id) => {
 document.getElementById("switch-button").addEventListener("click", function(e) {
     if (aff) {
         caseTitle.innerText = "Neg Case";
-        rebuttalTitle.innerText = "Neg Rebuttal";
+        rebuttalTitle.innerText = "Aff Rebuttal";
         summaryTitle.innerText = "Neg Summary";
-        finalFocusTitle.innerText = "Neg Final Focus";
+        finalFocusTitle.innerText = "Aff Final Focus";
 
         content.affCase = caseQuill.getContents();
-        content.affRebuttal = rebuttalQuill.getContents();
+        content.negRebuttal = rebuttalQuill.getContents();
         content.affSummary = summaryQuill.getContents();
-        content.affFinalFocus = finalFocusQuill.getContents();
+        content.negFinalFocus = finalFocusQuill.getContents();
 
         if (content.negCase == null) {
             caseQuill.setText("");
@@ -146,21 +163,21 @@ document.getElementById("switch-button").addEventListener("click", function(e) {
         }
         else {
             caseQuill.setContents(content.negCase);
-            rebuttalQuill.setContents(content.negRebuttal);
+            rebuttalQuill.setContents(content.affRebuttal);
             summaryQuill.setContents(content.negSummary);
-            finalFocusQuill.setContents(content.negFinalFocus);
+            finalFocusQuill.setContents(content.affFinalFocus);
         }
     }
     else {
         caseTitle.innerText = "Aff Case";
-        rebuttalTitle.innerText = "Aff Rebuttal";
+        rebuttalTitle.innerText = "Neg Rebuttal";
         summaryTitle.innerText = "Aff Summary";
-        finalFocusTitle.innerText = "Aff Final Focus";
+        finalFocusTitle.innerText = "Neg Final Focus";
 
         content.negCase = caseQuill.getContents();
-        content.negRebuttal = rebuttalQuill.getContents();
+        content.affRebuttal = rebuttalQuill.getContents();
         content.negSummary = summaryQuill.getContents();
-        content.negFinalFocus = finalFocusQuill.getContents();
+        content.affFinalFocus = finalFocusQuill.getContents();
 
         if (content.affCase == null) {
             caseQuill.setText("");
@@ -170,9 +187,9 @@ document.getElementById("switch-button").addEventListener("click", function(e) {
         }
         else {
             caseQuill.setContents(content.affCase);
-            rebuttalQuill.setContents(content.affRebuttal);
+            rebuttalQuill.setContents(content.negRebuttal);
             summaryQuill.setContents(content.affSummary);
-            finalFocusQuill.setContents(content.affFinalFocus);
+            finalFocusQuill.setContents(content.negFinalFocus);
         }
     }
 
