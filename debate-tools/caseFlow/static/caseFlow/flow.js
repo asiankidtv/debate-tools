@@ -65,13 +65,13 @@ document.getElementById("save-button").addEventListener("click", async function(
             "id": flowId,
             "name": document.getElementById("name-input").value,
             "affCase": caseQuill.getContents(),
-            "affRebuttal": rebuttalQuill.getContents(),
+            "negRebuttal": rebuttalQuill.getContents(),
             "affSummary": summaryQuill.getContents(),
-            "affFinalFocus": finalFocusQuill.getContents(),
+            "negFinalFocus": finalFocusQuill.getContents(),
             "negCase": content.negCase,
-            "negRebuttal": content.negRebuttal,
+            "affRebuttal": content.affRebuttal,
             "negSummary": content.negSummary,
-            "negFinalFocus": content.negFinalFocus,
+            "affFinalFocus": content.negFinalFocus,
         }
     }
     else {
@@ -107,6 +107,11 @@ document.getElementById("save-button").addEventListener("click", async function(
     catch (error) {
         console.log(error.message);
     }
+});
+
+document.getElementById("new-flow-button").addEventListener("click", function(e) {
+    flowId = -1
+    document.getElementById("save-label").innerText = "New Flow Name:"
 });
 
 /**

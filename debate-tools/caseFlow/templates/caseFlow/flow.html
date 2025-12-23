@@ -50,6 +50,7 @@
               <h2>{{ flow.name }}</h2>
               <p>Last Edited: {{ flow.created }} UTC</p>
               <button type="button" class="btn btn-secondary load-button" aria-label="Load Flow">Load</button>
+              <button type="button" class="btn btn-secondary delete-button" aria-label="Delete Flow">Delete</button>            
           </div>
         {% endfor %}
       </div>
@@ -70,12 +71,30 @@
       </div>
       <div class="modal-body">
           <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
-              <h3>Name:</h3>
+              <h3 id="save-label">Name:</h3>
               <input type="text" id="name-input" placeholder="Name Flow...">
-          </div>
+              <button id="new-flow-button" class="btn btn-primary">Save as new...</button>
+            </div>
+
       </div>
       <div class="modal-footer">
         <button id="save-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save Flow</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Confirm Modal-->
+<div class="modal fade" id="delete-confirm-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal-title-1">Confirm Deletion?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button id="no-delete-button" type="button" class="btn btn-primary">No</button>
+        <button id="yes-delete-button" type="button" class="btn btn-secondary">Yes</button>
       </div>
     </div>
   </div>
