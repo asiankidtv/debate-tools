@@ -103,6 +103,7 @@ document.getElementById("save-button").addEventListener("click", async function(
         }
         else {
             console.log(`Flow was saved!`)
+            window.location.reload()
         }
     }
     catch (error) {
@@ -167,6 +168,7 @@ document.getElementById("yes-delete-button").addEventListener("click", async fun
         }
         else {
             console.log(`Flow was Deleted.`)
+            window.location.reload()
         }
     }
     catch (error) {
