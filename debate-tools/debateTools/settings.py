@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'homepage',
     'caseViewer',
-    'caseFlow'
+    'caseFlow',
+    'api'
 ]
 
 MIDDLEWARE = [

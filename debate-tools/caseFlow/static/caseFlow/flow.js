@@ -58,7 +58,7 @@ let flowId = -1;
  * If id of current flow is -1, save a new flow.
  */
 document.getElementById("save-button").addEventListener("click", async function(e) {
-    const saveURL = "/flow/"
+    const saveURL = "/api/saveFlow/"
     let data = null
     if (aff) {
         data = {
