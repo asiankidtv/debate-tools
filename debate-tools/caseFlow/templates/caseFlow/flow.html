@@ -48,9 +48,9 @@
         {% for flow in flows %}
           <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
               <h2>{{ flow.name }}</h2>
-              <p>Last Edited: {{ flow.created }} UTC</p>
+              <p>Created: {{ flow.created }} UTC</p>
               <button type="button" class="btn btn-secondary load-button" aria-label="Load Flow">Load</button>
-              <button type="button" class="btn btn-secondary delete-button" aria-label="Delete Flow">Delete</button>            
+              <button value="{{ flow.id }}" type="button" class="btn btn-secondary delete-button" data-bs-toggle="modal" data-bs-target="#delete-confirm-modal" aria-label="Delete Flow">Delete</button>            
           </div>
         {% endfor %}
       </div>
@@ -75,7 +75,6 @@
               <input type="text" id="name-input" placeholder="Name Flow...">
               <button id="new-flow-button" class="btn btn-primary">Save as new...</button>
             </div>
-
       </div>
       <div class="modal-footer">
         <button id="save-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save Flow</button>
@@ -93,7 +92,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <button id="no-delete-button" type="button" class="btn btn-primary">No</button>
+        <button id="no-delete-button" type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
         <button id="yes-delete-button" type="button" class="btn btn-secondary">Yes</button>
       </div>
     </div>

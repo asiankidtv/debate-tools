@@ -8,7 +8,6 @@ def saveFlow(request):
     if request.method == "GET":
         return HttpResponseForbidden("You are not supposed to be here.")
     elif request.method == "POST":
-        print("------------------------------------------------------------------")
         data = request.body.decode('utf-8')
         JSONdata = json.loads(data)
         id = JSONdata["id"]
@@ -45,5 +44,9 @@ def deleteFlow(request):
     if request.method == "GET":
         return HttpResponseForbidden("Turn Away.")
     elif request.method == "POST":
-        print("request made to delete flow.")
+        data = request.body.decode('utf-8')
+        JSONdata = json.loads(data)
+        id = JSONdata["id"]
+
+        flow.objects.get(id=id).delete()
         return HttpResponse("200")

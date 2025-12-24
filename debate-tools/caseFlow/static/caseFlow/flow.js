@@ -51,6 +51,7 @@ const finalFocusTitle = document.getElementById("final-focus-title");
 // Flow Specific Stuff
 let aff = true;
 let flowId = -1;
+let deleteId = -1;
 // const flows = flow data taken from jinja
 
 /**
@@ -139,6 +140,43 @@ document.querySelectorAll(".load-button").forEach((button, index) => {
         rebuttalQuill.setContents(content.negRebuttal)
         summaryQuill.setContents(content.affSummary)
         finalFocusQuill.setContents(content.negFinalFocus)
+    });
+});
+
+document.getElementById("yes-delete-button").addEventListener("click", async function(e) {
+    if (deleteId == -1) {
+        return;
+    }
+    
+    const confirmModalElement = document.getElementById("delete-confirm-modal");
+    const confirmModal = bootstrap.Modal.getInstance(confirmModalElement)
+    confirmModal.hide()
+    deleteURL = "/api/deleteFlow/"
+    try {
+        const status = await fetch(deleteURL, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                "id": deleteId,
+            })
+        });
+        if (!status.ok) {
+            throw new Error(`Response status: ${status.status}`);           
+        }
+        else {
+            console.log(`Flow was Deleted.`)
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+});
+
+document.querySelectorAll(".delete-button").forEach(button => {
+    button.addEventListener("click", function(e) {
+        deleteId = button.value
     });
 });
 
