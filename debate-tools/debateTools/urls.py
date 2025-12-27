@@ -24,6 +24,7 @@ from caseFlow import views as caseFlow_views
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', homepage_views.homepage),
+    path('home/', homepage_views.homepage),
     path('viewer/', caseviewer_views.viewer),
     path('flow/', caseFlow_views.flowpage),
     path('api/', include("api.urls")),
