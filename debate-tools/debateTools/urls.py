@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from accounts import views as accounts_views
 from homepage import views as homepage_views
 from caseViewer import views as caseviewer_views
 from caseFlow import views as caseFlow_views
@@ -26,4 +27,6 @@ urlpatterns = [
     path('viewer/', caseviewer_views.viewer),
     path('flow/', caseFlow_views.flowpage),
     path('api/', include("api.urls")),
+    path('accounts/', include("django.contrib.auth.urls")),
+    path('signUp/', accounts_views.signUp),
 ]
