@@ -15,6 +15,7 @@ def saveFlow(request):
         if id == -1:
             newFlow = flow(
                 name=JSONdata["name"],
+                user=request.user,
                 affCase=JSONdata["affCase"],
                 affRebuttal=JSONdata["affRebuttal"],
                 affSummary=JSONdata["affSummary"],
@@ -26,6 +27,7 @@ def saveFlow(request):
             newFlow.save()
         else:
             editedFlow = flow.objects.get(id=id)
+            editedFlow.user=request.user,
             editedFlow.name = JSONdata["name"]
             editedFlow.affCase = JSONdata["affCase"]
             editedFlow.affRebuttal = JSONdata["affRebuttal"]
