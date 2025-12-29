@@ -31,11 +31,25 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <a class="nav-link" href="/flow">Round Flow</a>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="#">Logged in as {{ user.username }}</a>
+                </li>
+                <form method="post" action="/accounts/logout/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+            {% else %}
+                <li class="nav-item">    
+                <a class="nav-link" href="/accounts/login/">Login</a>
+                </li>
+            {% endif %}
+            <!--
             <li class="nav-item">            
             <a class="nav-link" href="/viewer">Case Viewer</a>
             <li class="nav-item">
             <a class="nav-link" href="#" role="button" aria-expanded="false">Card Cutter</a>
-            </li>
+            </li>-->
         </ul>
         </div>
     </div>
