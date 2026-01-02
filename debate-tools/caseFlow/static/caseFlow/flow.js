@@ -144,6 +144,10 @@ document.querySelectorAll(".load-button").forEach((button, index) => {
     });
 });
 
+/**
+ * Delete Flow Confirmation:
+ * Clicking yes sends a request to the API to delete the chosen flow.
+ */
 document.getElementById("yes-delete-button").addEventListener("click", async function(e) {
     if (deleteId == -1) {
         return;
@@ -186,7 +190,7 @@ document.querySelectorAll(".delete-button").forEach(button => {
  * Switch Case Sides Button
  * Stores the current side's content locally and loads the other. If the other side has no content, it sets the boxes to an empty string.
  * 
- * @NOTE Please, Please, Please refactor this when future me has time. This is gross and unsustainable.
+ * @NOTE Please, Please, Please refactor this when future me has time. This is very unsustainable :<
 */
 document.getElementById("switch-button").addEventListener("click", function(e) {
     if (aff) {

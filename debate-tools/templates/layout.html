@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" data-bs-core="modern">
 <head>
@@ -21,7 +22,10 @@
 
     <nav class="navbar navbar-expand-md" style="background-color: var(--bs-content-bg); border-bottom: var(--bs-border-width) solid var(--bs-content-border-color);">
     <div class="container-fluid">
-        Debate Tools
+        <a class="navbar-brand" href="/">
+        <img src="{% static 'homepage/logo.png' %}" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
+            Debate Tools
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse-2" aria-controls="navbar-collapse-2" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,7 +45,7 @@
                 </form>
             {% else %}
                 <li class="nav-item">    
-                <a class="nav-link" href="/accounts/login/">Login</a>
+                <button type="button" class="btn btn-primary" onclick="location.href='/accounts/login/'">Login</button>
                 </li>
             {% endif %}
             <!--
