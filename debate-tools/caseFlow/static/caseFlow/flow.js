@@ -54,6 +54,7 @@ let flowId = -1;
 let deleteId = -1;
 // const flows = flow data taken from jinja
 
+
 /**
  * Save Case Button
  * If id of current flow is -1, save a new flow.
@@ -72,7 +73,7 @@ document.getElementById("save-button").addEventListener("click", async function(
             "negCase": content.negCase,
             "affRebuttal": content.affRebuttal,
             "negSummary": content.negSummary,
-            "affFinalFocus": content.negFinalFocus,
+            "affFinalFocus": content.affFinalFocus,
         }
     }
     else {
@@ -80,13 +81,13 @@ document.getElementById("save-button").addEventListener("click", async function(
             "id": flowId,
             "name": document.getElementById("name-input").value,
             "affCase": content.affCase,
-            "affRebuttal": content.affRebuttal,
+            "negRebuttal": content.negRebuttal,
             "affSummary": content.affSummary,
-            "affFinalFocus": content.affFinalFocus,
+            "negFinalFocus": content.negFinalFocus,
             "negCase": caseQuill.getContents(),
-            "negRebuttal": rebuttalQuill.getContents(),
+            "affRebuttal": rebuttalQuill.getContents(),
             "negSummary": summaryQuill.getContents(),
-            "negFinalFocus": finalFocusQuill.getContents(),
+            "affFinalFocus": finalFocusQuill.getContents(),
         }
     }
 
@@ -243,4 +244,56 @@ document.getElementById("switch-button").addEventListener("click", function(e) {
     }
 
     aff = !aff;
+});
+
+document.getElementById("summarize-button").addEventListener("click", async function(e) {
+    if (aff) {
+        data = {
+            "id": flowId,
+            "name": document.getElementById("name-input").value,
+            "affCase": caseQuill.getContents(),
+            "negRebuttal": rebuttalQuill.getContents(),
+            "affSummary": summaryQuill.getContents(),
+            "negFinalFocus": finalFocusQuill.getContents(),
+            "negCase": content.negCase,
+            "affRebuttal": content.affRebuttal,
+            "negSummary": content.negSummary,
+            "affFinalFocus": content.negFinalFocus,
+        }
+    }
+    else {
+        data = {
+            "id": flowId,
+            "name": document.getElementById("name-input").value,
+            "affCase": content.affCase,
+            "affRebuttal": content.affRebuttal,
+            "affSummary": content.affSummary,
+            "affFinalFocus": content.affFinalFocus,
+            "negCase": caseQuill.getContents(),
+            "negRebuttal": rebuttalQuill.getContents(),
+            "negSummary": summaryQuill.getContents(),
+            "negFinalFocus": finalFocusQuill.getContents(),
+        }
+    }
+    
+    const summaryUrl = "/api/summarizeFlow/"
+    try {
+        const status = await fetch(summaryUrl, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify(data)
+        });
+        if (!status.ok) {
+            throw new Error(`Response status: ${status.status}`);           
+        }
+        else {
+            console.log(`Flow was Deleted.`)
+            window.location.reload()
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+    }    
 });

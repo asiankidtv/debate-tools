@@ -52,3 +52,11 @@ def deleteFlow(request):
 
         flow.objects.get(id=id).delete()
         return HttpResponse("200")
+    
+def summarize(request):
+    if request.method == "GET":
+        return HttpResponseForbidden("Nuh uh uh...")
+    elif request.method == "POST":
+        data = request.body.decode('utf-8')
+        JSONdata = json.loads(data)
+        
