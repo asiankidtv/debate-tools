@@ -27,7 +27,7 @@ def saveFlow(request):
             newFlow.save()
         else:
             editedFlow = flow.objects.get(id=id)
-            editedFlow.user=request.user,
+            editedFlow.user=request.user
             editedFlow.name = JSONdata["name"]
             editedFlow.affCase = JSONdata["affCase"]
             editedFlow.affRebuttal = JSONdata["affRebuttal"]
