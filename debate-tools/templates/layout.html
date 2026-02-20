@@ -1,12 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" data-bs-core="modern">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Halfmoon CSS Implementation ADD CUSTOM CSS AFTER-->
-    <link href="https://cdn.jsdelivr.net/npm/halfmoon@2.0.2/css/halfmoon.min.css" rel="stylesheet" integrity="sha256-RjeFzczeuZHCyS+Gvz+kleETzBF/o84ZRHukze/yv6o=" crossorigin="anonymous">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    >
 
     <!--Quill Rich Text Editor-->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
@@ -15,50 +18,70 @@
     <title>{% block title %}{% endblock %}</title>
     {% block head %}{% endblock %}
 </head>
-<body class="bg-light">
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img src="{% static 'homepage/logo.png' %}" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
+                <strong>Debate Tools</strong>
+            </a>
 
-    <!--Halfmoon JS Library (Same as Bootstrap Bundle)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-CDOy6cOibCWEdsRiZuaHf8dSGGJRYuBGC+mjoJimHGw=" crossorigin="anonymous"></script>
-
-    <nav class="navbar navbar-expand-md" style="background-color: var(--bs-content-bg); border-bottom: var(--bs-border-width) solid var(--bs-content-border-color);">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-        <img src="{% static 'homepage/logo.png' %}" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
-            Debate Tools
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse-2" aria-controls="navbar-collapse-2" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-collapse-2">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <a class="nav-link" href="/flow">Round Flow</a>
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                <a class="nav-link" href="#">Logged in as {{ user.username }}</a>
-                </li>
-                <form method="post" action="/accounts/logout/">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Logout</button>
-                </form>
-            {% else %}
-                <li class="nav-item">    
-                <button type="button" class="btn btn-primary" onclick="location.href='/accounts/login/'">Login</button>
-                </li>
-            {% endif %}
-            <!--
-            <li class="nav-item">            
-            <a class="nav-link" href="/viewer">Case Viewer</a>
-            <li class="nav-item">
-            <a class="nav-link" href="#" role="button" aria-expanded="false">Card Cutter</a>
-            </li>-->
-        </ul>
+            <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
-    </div>
+
+        <div id="mainNavbar" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/flow">Round Flow</a>
+            </div>
+
+            <div class="navbar-end">
+                {% if user.is_authenticated %}
+                    <div class="navbar-item">
+                        Logged in as {{ user.username }}
+                    </div>
+                    <div class="navbar-item">
+                        <form method="post" action="/accounts/logout/">
+                            {% csrf_token %}
+                            <button type="submit" class="button">Logout</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="navbar-item">
+                        <button type="button" class="button" onclick="location.href='/accounts/login/'">Login</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+
+                });
+            });
+
+            });
+        </script>
     </nav>
- 
     
     {% block body %}
     {% endblock %}
