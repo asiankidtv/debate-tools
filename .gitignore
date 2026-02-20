@@ -1,5 +1,9 @@
-# Personal Stuff:
+# Production Stuff:
 productionStatic
+.env.prod
+docker-compose.prod.yml
+entrypoint.prod.sh
+Dockerfile.prod
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
