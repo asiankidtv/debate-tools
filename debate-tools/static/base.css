@@ -1,0 +1,10 @@
+.hero.has-homepage-bg { position: relative; overflow: hidden; }
+           .hero.has-homepage-bg::before {
+               content: "";
+               position: absolute;
+               inset: 0;
+               background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbh_qAH9eFe24R6eLZCcz81muvatmB1MbKQA&s') center/cover no-repeat;
+               opacity: 0.15; /* adjust for fainter/stronger */
+               z-index: 0;
+           }
+           .hero.has-homepage-bg .hero-body { position: relative; z-index: 1; }
