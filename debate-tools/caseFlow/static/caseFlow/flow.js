@@ -52,7 +52,7 @@ const finalFocusTitle = document.getElementById("final-focus-title");
 let aff = true;
 let flowId = -1;
 let deleteId = -1;
-// const flows = flow data taken from jinja
+// const flows = flow data taken from jinja and can be found in the html file.
 
 /**
  * Modal Control
