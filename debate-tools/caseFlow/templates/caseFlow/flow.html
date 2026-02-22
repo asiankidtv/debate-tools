@@ -6,98 +6,109 @@
 {% load static %}
 
 <br>
-<h1 class="text-center">Case Flow</h1>
+<p class="title has-text-centered">Case Flow</p>
 
-<div class="button-holder" style="margin-left: 2.5%;">
-    <button id="switch-button" type="button" class="btn btn-primary">Switch Sides</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#save-modal">Save Flow</button>
-    <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#load-modal">Load Flow</button>
-    <button id="summarize-button" type="button" class="btn btn-primary">Summarize Case ✨</button>
-    <div class="icon-info-sign"></div>
+<div class="button-holder m-5">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            <button id="switch-button" type="button" class="button">Switch Sides</button>
+            <button type="button" class="js-modal-trigger button" data-target="save-modal">Save Flow</button>
+            <button type="button" class="js-modal-trigger button" data-target="load-modal">Load Flow</button>
+            <button id="summarize-button" type="button" class="button">Summarize Case ✨</button>
+            <div class="icon-info-sign"></div>
+        </div>
+    </div>
 </div> <br>
 
 <!--Styling CSS Needs to be cleaned up at some point-->
-<div id="flow" class="rounded row bg-white min-vh-100" style="width: 95%; margin-left: 2.5%; padding-top: 20px;">
+<div class="columns m-2">
     <div id="case" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 id ="case-title" class="text-center">Aff Case</h2>
+        <h2 id ="case-title" class="has-text-centered subtitle">Aff Case</h2>
         <div id="case-editor" style="height: 90%;"></div>
     </div>
+
     <div id="rebuttal" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 id="rebuttal-title" class="text-center">Neg Rebuttal</h2>
+        <h2 id="rebuttal-title" class="has-text-centered subtitle">Neg Rebuttal</h2>
         <div id="rebuttal-editor" style="height: 90%;"></div>
     </div>
+
     <div id="summary" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 id="summary-title" class="text-center">Aff Summary</h2>
+        <h2 id="summary-title" class="has-text-centered subtitle">Aff Summary</h2>
         <div id="summary-editor" style="height: 90%;"></div>
     </div>
+
     <div id="final-focus" class="column w-25 h-100 border-end d-inline min-vh-100">
-        <h2 id="final-focus-title" class="text-center">Neg Final Focus</h2>
+        <h2 id="final-focus-title" class="has-text-centered subtitle">Neg Final Focus</h2>
         <div id="final-focus-editor" style="height: 90%;"></div>
     </div>
 </div>
 
 <!--Modal for Loading Cases:-->
-<div class="modal fade" id="load-modal" tabindex="-1" aria-labelledby="modal-title-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modal-title-1">Load Flow:</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {% for flow in flows %}
-          <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
-              <h2>{{ flow.name }}</h2>
-              <p>Created: {{ flow.created }} UTC</p>
-              <button type="button" class="btn btn-secondary load-button" aria-label="Load Flow">Load</button>
-              <button value="{{ flow.id }}" type="button" class="btn btn-secondary delete-button" data-bs-toggle="modal" data-bs-target="#delete-confirm-modal" aria-label="Delete Flow">Delete</button>            
-          </div>
-        {% endfor %}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+<div class="modal" id="load-modal" tabindex="-1" aria-labelledby="modal-title-1" aria-hidden="true">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Load Flow:</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+            {% if flows %}
+                {% for flow in flows %}
+                    <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
+                        <p class="title is-4">{{ flow.name }}</p>
+                        <p class="subtitle is-5">Created: {{ flow.created }} UTC</p>
+                        <button type="button" class="button load-button" aria-label="Load Flow">Load</button>
+                        <button value="{{ flow.id }}" type="button" class="js-modal-trigger button is-danger delete-button" data-target="delete-confirm-modal" aria-label="Delete Flow">Delete</button>            
+                    </div>
+                {% endfor %}
+            {% else %}
+                <strong>No flows found.</strong>
+            {% endif %}
+
+
+        </section>
     </div>
-  </div>
 </div>
 
 <!--Modal for Naming Flows when saving:-->
-<div class="modal fade" id="save-modal" tabindex="-1" aria-labelledby="modal-title-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modal-title-1">Save Flow:</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
-              <h3 id="save-label">Name:</h3>
-              <input type="text" id="name-input" placeholder="Name Flow...">
-              <button id="new-flow-button" class="btn btn-primary">Save as new...</button>
+<div class="modal" id="save-modal" tabindex="-1" aria-labelledby="modal-title-1" aria-hidden="true">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Save Flow:</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+            <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
+                <h3 id="save-label">Name:</h3>
+                <input type="text" id="name-input" class="input" placeholder="Name Flow...">
+                <button id="new-flow-button" class="button">Save as new...</button>
             </div>
-      </div>
-      <div class="modal-footer"> 
-        <p style="color: red;">Please load flow again after saving.</p>
-        <button id="save-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save Flow</button>
-      </div>
+        </section>
+
+        <footer class="modal-card-foot">
+            <button id="save-button" type="button" class="button" data-bs-dismiss="modal">Save Flow</button>
+            <p class="m-5" style="color: red;">Please load flow again after saving.</p>
+        </footer>
     </div>
-  </div>
 </div>
 
 <!--Delete Confirm Modal-->
-<div class="modal fade" id="delete-confirm-modal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modal-title-1">Confirm Deletion?</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <button id="no-delete-button" type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-        <button id="yes-delete-button" type="button" class="btn btn-secondary">Yes</button>
-      </div>
+<div class="modal" id="delete-confirm-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Confirm Deletion?</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+            <button id="no-delete-button" type="button" class="button" aria-label="close">No</button>
+            <button id="yes-delete-button" type="button" class="button">Yes</button>
+        </section>
     </div>
-  </div>
 </div>
 
 <!--I didnt know this was a feature but it is cool beans-->
