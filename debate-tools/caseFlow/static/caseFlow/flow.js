@@ -240,12 +240,12 @@ document.querySelectorAll(".delete-button").forEach(button => {
 });
 
 /**
- * Switch Case Sides Button
+ * Switch Case Sides
  * Stores the current side's content locally and loads the other. If the other side has no content, it sets the boxes to an empty string.
  * 
  * @NOTE Please, Please, Please refactor this when future me has time. This is very unsustainable :<
 */
-document.getElementById("switch-button").addEventListener("click", function(e) {
+function swapSides() {
     if (aff) {
         caseTitle.innerText = "Neg Case";
         rebuttalTitle.innerText = "Aff Rebuttal";
@@ -296,36 +296,41 @@ document.getElementById("switch-button").addEventListener("click", function(e) {
     }
 
     aff = !aff;
-});
+}
+
+document.getElementById("switch-button").addEventListener("click", swapSides);
 
 document.getElementById("summarize-button").addEventListener("click", async function(e) {
     if (aff) {
         data = {
             "id": flowId,
             "name": document.getElementById("name-input").value,
-            "affCase": caseQuill.getContents(),
-            "negRebuttal": rebuttalQuill.getContents(),
-            "affSummary": summaryQuill.getContents(),
-            "negFinalFocus": finalFocusQuill.getContents(),
-            "negCase": content.negCase,
-            "affRebuttal": content.affRebuttal,
-            "negSummary": content.negSummary,
-            "affFinalFocus": content.negFinalFocus,
+            "affCase": caseQuill.getText(),
+            "negRebuttal": rebuttalQuill.getText(),
+            "affSummary": summaryQuill.getText(),
+            "negFinalFocus": finalFocusQuill.getText(),
         }
+        swapSides();
+        data["negCase"] = caseQuill.getText();
+        data["affRebuttal"] = rebuttalQuill.getText();
+        data["negSummary"] = summaryQuill.getText();
+        data["affFinalFocus"] = finalFocusQuill.getText();
+        swapSides();
     }
     else {
         data = {
             "id": flowId,
             "name": document.getElementById("name-input").value,
-            "affCase": content.affCase,
-            "affRebuttal": content.affRebuttal,
-            "affSummary": content.affSummary,
-            "affFinalFocus": content.affFinalFocus,
-            "negCase": caseQuill.getContents(),
-            "negRebuttal": rebuttalQuill.getContents(),
-            "negSummary": summaryQuill.getContents(),
-            "negFinalFocus": finalFocusQuill.getContents(),
+            "negCase": caseQuill.getText(),
+            "affRebuttal": rebuttalQuill.getText(),
+            "negSummary": summaryQuill.getText(),
+            "affFinalFocus": finalFocusQuill.getText(),
         }
+        swapSides();
+        data["affCase"] = caseQuill.getText();
+        data["negRebuttal"] = rebuttalQuill.getText();
+        data["affSummary"] = summaryQuill.getText();
+        data["negFinalFocus"] = finalFocusQuill.getText();
     }
     
     const summaryUrl = "/api/summarizeFlow/"
@@ -341,8 +346,16 @@ document.getElementById("summarize-button").addEventListener("click", async func
             throw new Error(`Response status: ${status.status}`);           
         }
         else {
-            console.log(`Flow was Deleted.`)
-            window.location.reload()
+            const summaryTextBox = document.getElementById("response-text")
+            summaryTextBox.innerText = "Loading..."
+
+            const responseData = await status.json();
+            console.log(responseData.response);
+
+            summaryTextBox.innerText = responseData.response
+
+
+            
         }
     }
     catch (error) {

@@ -14,8 +14,7 @@
             <button id="switch-button" type="button" class="button">Switch Sides</button>
             <button type="button" class="js-modal-trigger button" data-target="save-modal">Save Flow</button>
             <button type="button" class="js-modal-trigger button" data-target="load-modal">Load Flow</button>
-            <button id="summarize-button" type="button" class="button">Summarize Case ✨</button>
-            <div class="icon-info-sign"></div>
+            <button id="summarize-button" type="button" class="js-modal-trigger button" data-target="summary-modal">Summarize Case ✨</button>
         </div>
     </div>
 </div> <br>
@@ -105,6 +104,21 @@
         <section class="modal-card-body">
             <button id="no-delete-button" type="button" class="button" aria-label="close">No</button>
             <button id="yes-delete-button" type="button" class="button">Yes</button>
+        </section>
+    </div>
+</div>
+
+<!--Summarize Modal-->
+<div class="modal" id="summary-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Flow Summary ✨</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section id="response-text" class="modal-card-body">
+            <p>Loading...</p>
         </section>
     </div>
 </div>
