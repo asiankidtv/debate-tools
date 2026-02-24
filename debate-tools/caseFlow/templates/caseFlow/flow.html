@@ -54,11 +54,16 @@
         <section class="modal-card-body">
             {% if flows %}
                 {% for flow in flows %}
-                    <div class="flow-modal border rounded" style="width: 97%; height: 10%; margin-left: 1.5%; margin-top: 1%; padding: 20px;">
-                        <p class="title is-4">{{ flow.name }}</p>
-                        <p class="subtitle is-5">Created: {{ flow.created }} UTC</p>
-                        <button type="button" class="button load-button" aria-label="Load Flow">Load</button>
-                        <button value="{{ flow.id }}" type="button" class="js-modal-trigger button is-danger delete-button" data-target="delete-confirm-modal" aria-label="Delete Flow">Delete</button>            
+                    <div class="flow-modal card">
+                        <header class="card-header">
+                            <p class="card-header-title">{{ flow.name }}</p>
+                        </header>
+
+                        <div class="card-content">
+                            <p class="subtitle is-5">Created: {{ flow.created }} UTC</p>
+                            <button type="button" class="button load-button" aria-label="Load Flow">Load</button>
+                            <button value="{{ flow.id }}" type="button" class="js-modal-trigger button is-danger delete-button" data-target="delete-confirm-modal" aria-label="Delete Flow">Delete</button>
+                        </div>            
                     </div>
                 {% endfor %}
             {% else %}
