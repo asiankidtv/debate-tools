@@ -27,6 +27,7 @@ urlpatterns = [
     path('home/', homepage_views.homepage),
     path('viewer/', caseviewer_views.viewer),
     path('flow/', caseFlow_views.flowpage),
+    path('evidence/', include("evidence.urls")),
     path('api/', include("api.urls")),
     path('accounts/', include("django.contrib.auth.urls")),
     path('signUp/', accounts_views.signUp),

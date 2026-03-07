@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'caseFlow',
     'api',
     'accounts',
+    'evidence',
 ]
 
 MIDDLEWARE = [
